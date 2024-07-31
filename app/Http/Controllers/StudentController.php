@@ -14,36 +14,6 @@ class StudentController extends Controller
         $students = Student::all();
         return view('template.stories', compact('students'));
     }
-    // public function student_stories(Request $request)
-    // {
-    //     $gender = $request->input('gender');
-    //     $province = $request->input('province');
-    //     $discipline = $request->input('discipline');
-    //     $degree = $request->input('degree');
-
-    //     $query = Student::query();
-
-    //     if ($gender && $gender !== 'all') {
-    //         $query->where('gender', $gender);
-    //     }
-
-    //     if ($province && $province !== 'all') {
-    //         $query->where('province', $province);
-    //     }
-
-    //     if ($discipline && $discipline !== 'all') {
-    //         $query->where('discipline', $discipline);
-    //     }
-    //     if ($degree && $degree !== 'all') {
-    //         $query->where('degree', $degree);
-    //     }
-
-    //     $query->orderByRaw("CASE WHEN images = 'dummy.png' THEN 1 ELSE 0 END, images");
-
-    //     $students = $query->paginate(8);
-
-    //     return view('template.support_scholar.index', compact('students'));
-    // }
 
 
     public function student_stories(Request $request)
@@ -86,9 +56,13 @@ class StudentController extends Controller
             return response()->json(['studentsHtml' => $studentsHtml, 'paginationHtml' => $paginationHtml]);
         }
 
+        // Determine if pledge and payment are approved based on the first student in the collection
+        $isPledgeApproved = $students->first()->make_pledge ?? 0;
+        $isPaymentApproved = $students->first()->payment_approved ?? 0;
 
-        return view('template.support_scholar.index', compact('students'));
+        return view('template.support_scholar.index', compact('students', 'isPledgeApproved', 'isPaymentApproved'));
     }
+
 
     public function student_stories_ind($id)
     {

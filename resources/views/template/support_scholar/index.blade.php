@@ -89,6 +89,8 @@
                                     <option value="all" selected>All Disciplines</option>
                                     <option value="Engineering & IT">Engineering & IT</option>
                                     <option value="Bio Sciences">Bio Sciences</option>
+                                    <option value="Management Sciences">Management Sciences</option>
+                                    <option value="Natural Sciences">Natural Sciences</option>
                                     <!-- Add more options for disciplines -->
                                 </select>
                             </div>
